@@ -1,0 +1,53 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.edit_user' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group" >
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.user_name' | translate }}</ion-label>
+        <ion-input type="text" maxlength="500" formControlName="user_name"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group" >
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.CUST.name' | translate }}</ion-label>
+        <ion-input formControlName="name" maxlength="125" placeholder="{{ 'REGISTER.CUST.name' | translate }}"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group" >
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+        <ion-input formControlName="phone" appOnlyNumber maxlength="12" placeholder="{{ 'REGISTER.CUST.phone' | translate }}"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group" *ngIf="data.user.type === 2">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.CUST.manager' | translate }}</ion-label>
+        <ion-input formControlName="manager" maxlength="125" placeholder="{{ 'REGISTER.CUST.manager' | translate }}"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group" *ngIf="data.user.type === 2">    
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.CUST.city' | translate }}</ion-label>
+        <ion-select [disabled]="!cities" formControlName="city_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="input-group" *ngIf="data.user.type === 2">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.CUST.address' | translate }}</ion-label>
+        <ion-input formControlName="address" maxlength="125" placeholder="{{ 'REGISTER.CUST.address' | translate }}"></ion-input>
+      </ion-item>
+    </div>
+
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

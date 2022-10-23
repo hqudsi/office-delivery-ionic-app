@@ -1,0 +1,80 @@
+ion-header {
+    margin-top: 56px;
+  }
+  
+  ion-title {
+    font-weight: 500;
+  }
+  
+  ion-row {
+    text-align: center;
+  }
+  ion-col {
+    text-align: center;
+    //   border-left: 1px solid #e1961414;
+    //   border-right: 1px solid #e1961414;
+  }
+  
+  .header-icon {
+    font-size: 24px;
+  }
+  
+  .header-bar {
+    --min-height: 32px;
+  }
+  
+  .filter-bar {
+    --min-height: 28px;
+    padding: 0px 16px;
+  }
+  
+  .order-item-background-new {
+    background: var(--ion-color-new-order);
+  }
+  .order-item-background-in-company {
+    background: var(--ion-color-in-company-order);
+  }
+  .order-item-background-sorting {
+    background: var(--ion-color-sorting-order);
+  }
+  .order-item-background-parked {
+    background: var(--ion-color-parked-order);
+  }
+  .order-item-background-in-progress {
+    background: var(--ion-color-in-progress-order);
+  }
+  .order-item-background-delivered {
+    background: var(--ion-color-delivered-order);
+  }
+  .order-item-background-return {
+    background: var(--ion-color-return-order);
+  }
+  .order-item-background-canceled {
+    background: var(--ion-color-canceled-order);
+  }
+  
+  
+  .item-header {
+    --ion-background-color: #000000 !important;
+  }
+  
+  .order-header {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .order-item {
+    font-size: 12px;
+    font-weight: 100;
+  }
+  
+  ion-toolbar > ion-icon {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
+  ion-checkbox {
+    margin: 0px auto;
+    height: 20px;
+    width: 20px;
+  }

@@ -1,0 +1,40 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'ADD_RECEIPT.title' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ADD_RECEIPT.customer_id' | translate }}</ion-label>
+        <ion-select formControlName="customer_id" interface="action-sheet" mode="ios" (ionChange)="onCustomerChange($event)">
+          <ion-select-option *ngFor="let customer of customers" [value]="customer.customer.id">{{customer.customer.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none" disabled="true">
+        <ion-label position="fixed">{{ 'ADD_RECEIPT.balance' | translate }}</ion-label>
+        <ion-label color="dark">{{ balance | number : '1.2-2'}}</ion-label>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ADD_RECEIPT.amount' | translate }}</ion-label>
+        <ion-input appTwoDigitNumber clearInput type="number" inputmode="tel" required formControlName="amount"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ADD_RECEIPT.manual_number' | translate }}</ion-label>
+        <ion-input clearInput maxlength="10" type="text" required formControlName="manual_number"></ion-input>
+      </ion-item>
+    </div>
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

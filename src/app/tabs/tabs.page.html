@@ -1,0 +1,94 @@
+<ion-menu side="start" content-id="main-content">
+  <ion-header mode="md">
+    <ion-toolbar translucent color="primary">
+      <ion-title>{{'TABS.menu' | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-menu-toggle auto-hide="true">
+      <ion-item [routerLink]="['/tabs/profile']" (click)="changed()">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label>{{'TABS.profile' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/users']" (click)="changed()" *ngIf="userType==1 || userType==5">
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>{{'TABS.users' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/customers']" (click)="changed()" *ngIf="userType==1 || userType==5">
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>{{'TABS.customers' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/drivers']" (click)="changed()" *ngIf="userType==1 || userType==5">
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>{{'TABS.drivers' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/customer-payments']" (click)="changed()" *ngIf="userType==1 || userType==5">
+        <ion-icon name="cash" slot="start"></ion-icon>
+        <ion-label>{{'TABS.customer_payments' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/drivers-collection']" (click)="changed()" *ngIf="userType==1 || userType==5">
+        <ion-icon name="cash" slot="start"></ion-icon>
+        <ion-label>{{'TABS.drivers_collection' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/finance-changes']" (click)="changed()" *ngIf="userType==1">
+        <ion-icon name="cash" slot="start"></ion-icon>
+        <ion-label>{{'TABS.finance_changes' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/settings']" (click)="changed()">
+        <ion-icon name="settings" slot="start"></ion-icon>
+        <ion-label>{{'TABS.settings' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/orders']" (click)="changed()">
+        <ion-icon name="archive" slot="start"></ion-icon>
+        <ion-label>{{'TABS.archived' | translate}}</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/tabs/about']" (click)="changed()">
+        <ion-icon name="information-circle" slot="start"></ion-icon>
+        <ion-label>{{'TABS.about' | translate}}</ion-label>
+      </ion-item>
+      <ion-item button (click)="logout()">
+        <ion-icon name="log-out" slot="start"></ion-icon>
+        <ion-label>{{'TABS.logout' | translate}}</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-content>
+</ion-menu>
+
+<ion-header id="main-content" mode="md" #header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" [style.color]="'#efe5db'"></ion-menu-button>
+    </ion-buttons>
+    <ion-img slot="end" src="assets/Beelivery.png"  [routerLink]="['/tabs/dashboard']" (click)="changed()"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-tabs scrollEvents="true" [appHideHeader]="header">
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="dashboard" (click)="changed()">
+      <ion-icon name="speedometer"></ion-icon>
+      <ion-label>{{'TABS.dashboard' | translate}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="orders-statistics" (click)="changed()">
+      <ion-icon name="bag"></ion-icon>
+      <ion-label>{{'TABS.orders' | translate}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="addPopover($event)" *ngIf="userType!=3">
+      <ion-icon name="add-circle-outline" size="large"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="finance" (click)="changed()" [disabled]="userType==4">
+      <ion-icon name="cash"></ion-icon>
+      <ion-label>{{'TABS.finance' | translate}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="reports" (click)="changed()">
+      <ion-icon name="clipboard"></ion-icon>
+      <ion-label>{{'TABS.reports' | translate}}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

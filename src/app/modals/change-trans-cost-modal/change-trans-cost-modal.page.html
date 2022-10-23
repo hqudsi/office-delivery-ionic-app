@@ -1,0 +1,26 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.change_trans_cost' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group" >
+      <ion-item lines="none">
+        <ion-label>{{ 'MODAL.trans_cost' | translate }}</ion-label>
+        <ion-input appTwoDigitNumber type="number" maxlength="250" clearInput inputmode="tel" formControlName="amount"></ion-input>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label>{{ 'MODAL.notes' | translate }}</ion-label>
+        <ion-textarea maxlength="500" formControlName="notes"></ion-textarea>
+      </ion-item>
+    </div>
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

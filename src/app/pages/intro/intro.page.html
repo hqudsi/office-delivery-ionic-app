@@ -1,0 +1,99 @@
+<ion-content>
+  <ion-slides pager="true" style="max-width: 500px;">
+ 
+    <!-- Slide 1 -->
+    <ion-slide>
+      <ion-text color="dark">
+        <img src="assets/slides/slide1.png">
+        <h1><b><i>{{ 'INTRO.SLIDE1.header' | translate }}</i></b></h1>
+        <p>{{ 'INTRO.SLIDE1.paragraph' | translate }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="next()" fill="outline" color="dark">{{ 'next' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-text>
+    </ion-slide>
+
+    <!-- Slide 2 -->
+    <ion-slide>
+      <ion-text color="dark">
+        <img src="assets/slides/slide2.png">
+        <h1><b><i>{{ 'INTRO.SLIDE2.header' | translate }}</i></b></h1>
+        <p>{{ 'INTRO.SLIDE2.paragraph' | translate }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="previous()" fill="outline" color="dark">{{ 'previous' | translate }}</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="next()" fill="outline" color="dark">{{ 'next' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-text>
+    </ion-slide>
+
+    <!-- Slide 3 -->
+    <ion-slide>
+      <ion-text color="dark">
+        <img src="assets/slides/slide3.png">
+        <h1><b><i>{{ 'INTRO.SLIDE3.header' | translate }}</i></b></h1>
+        <p>{{ 'INTRO.SLIDE3.paragraph' | translate }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="previous()" fill="outline" color="dark">{{ 'previous' | translate }}</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="next()" fill="outline" color="dark">{{ 'next' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-text>
+    </ion-slide>
+
+    <!-- Slide 4 -->
+    <ion-slide>
+      <ion-text color="dark">
+        <img src="assets/slides/slide4.png">
+        <h1><b><i>{{ 'INTRO.SLIDE4.header' | translate }}</i></b></h1>
+        <p><span [innerHTML]="'INTRO.SLIDE4.paragraph' | translate"></span></p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="previous()" fill="outline" color="dark">{{ 'previous' | translate }}</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="next()" fill="outline" color="dark">{{ 'next' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-text>
+    </ion-slide>
+ 
+    <!-- Slide 5 -->
+    <ion-slide>
+      <ion-text color="dark">
+        <img src="assets/slides/slide5.png">
+        <h1><b><i>{{ 'INTRO.SLIDE5.header' | translate }}</i></b></h1>
+        <p>{{ 'INTRO.SLIDE5.paragraph' | translate }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="previous()" fill="outline" color="dark">{{ 'previous' | translate }}</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="start()" fill="outline" color="dark">{{ 'start' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-text>
+    </ion-slide>
+ 
+  </ion-slides>
+</ion-content>

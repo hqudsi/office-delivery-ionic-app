@@ -1,0 +1,8 @@
+{
+  "name": "logistics-ionic",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

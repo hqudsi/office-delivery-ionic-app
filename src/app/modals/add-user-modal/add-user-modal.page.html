@@ -1,0 +1,67 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.add_user' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+
+  <ion-segment [(ngModel)]="newUserType" mode="ios">
+    <ion-segment-button value="1">
+      <ion-label>{{ 'MODAL.manager' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label>{{ 'MODAL.driver' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="4">
+      <ion-label>{{ 'MODAL.assistance' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="5">
+      <ion-label>{{ 'MODAL.accountant' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <form [formGroup]="userFG">
+    <ion-card class="input-group">
+      <ion-card-header>
+        <ion-card-title>{{ 'REGISTER.user_data' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label type="text" position="fixed">{{ 'REGISTER.user_name' | translate }}</ion-label>
+        <ion-input maxlength="125" placeholder="{{ 'REGISTER.user_name' | translate }}" formControlName="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label type="email" position="fixed">{{ 'REGISTER.email_phone' | translate }}</ion-label>
+        <ion-input maxlength="125" placeholder="{{ 'REGISTER.email_phone' | translate }}" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="(userFG.get('email').dirty || userFG.get('email').touched)
+                && validEmail()" class="errors">
+      </div>
+    </ion-card>
+  </form>
+
+  <div *ngIf="newUserType==3">
+    <form [formGroup]="driverFG">
+      <ion-card class="input-group">
+        <ion-card-header>
+          <ion-card-title>{{ 'REGISTER.drvier_data' | translate }}</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+          <ion-label position="fixed">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+          <ion-input appOnlyNumber formControlName="phone" inputmode="tel" maxlength="20" placeholder="{{ 'REGISTER.CUST.phone' | translate }}"></ion-input>
+        </ion-item>
+        <div *ngIf="(driverFG.get('phone').dirty || driverFG.get('phone').touched)
+                  && driverFG.get('phone').errors" class="errors">
+        </div>
+      </ion-card>
+    </form>
+  </div>
+
+  <ion-button class="save-button"  expand="block" (click)="save()" [disabled]="!userFG.valid">{{ 'save' | translate }}</ion-button>
+
+</ion-content>

@@ -1,0 +1,123 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/drivers-collection"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ 'DRIVERS_COLLECTION.details.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="true">
+  <div class="web-content-div">
+  <div *ngIf="data" class="selectable">
+    <ion-card class="selectable">
+      <ion-item lines="none">
+        <ion-icon (click)="showQR()" name="qr-code-outline" slot="start" size="large"></ion-icon>
+        <ion-label class="header-labels">{{ data.oid }}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="userType == 2">
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.company_info' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.company' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.company.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.company.phone }}</ion-label>
+        <ion-icon name="call-outline" color="primary" slot="end" button (click)="makeCall(data.company.phone)"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="userType != 2">
+      <ion-card-header>
+        <ion-card-title>{{ 'DRIVERS_COLLECTION.details.info' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'DRIVERS_COLLECTION.details.driver' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.driver.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.driver.phone }}</ion-label>
+        <ion-icon name="call-outline" color="primary" slot="end" button (click)="makeCall(data.driver.phone)"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'DRIVERS_COLLECTION.details.voucher_date' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.created_at | dateTimeFormat : 'DD/MM/yyyy' }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'DRIVERS_COLLECTION.details.total' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.total }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header style="text-align: center;">
+        <ion-card-title>{{ 'DRIVERS_COLLECTION.details.orders_list' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-weight: bold;" color="primary" class="order-header">{{ 'oid' | translate }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label style="font-weight: bold;" color="primary" class="order-header">{{ 'date' | translate }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label style="font-weight: bold;" color="primary" class="order-header">{{ 'to' | translate }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label style="font-weight: bold;" color="primary" class="order-header">{{ 'ORDER.customer' | translate }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label style="font-weight: bold;" color="primary" class="order-header">{{ 'ORDER.MONEY.received' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-item *ngFor="let order of data.orders">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label color="dark" class="order-item">{{ order.oid }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label color="dark" class="order-item">{{ order.created_at | dateTimeFormat : 'DD/MM/yyyy'  }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label color="dark" text-wrap class="order-item">{{ order.to.name }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label color="dark" text-wrap class="order-item">{{ order.end_customer_name }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label color="dark" class="order-item">{{ order.order_costs[0].received }}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+    </ion-card>
+
+    
+  </div>
+  
+</div>
+
+</ion-content>

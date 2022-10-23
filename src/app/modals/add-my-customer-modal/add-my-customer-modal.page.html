@@ -1,0 +1,95 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.add_my_customer' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+
+  <ion-segment [(ngModel)]="newCustomer" mode="ios">
+    <ion-segment-button value="1">
+      <ion-label>{{ 'MODAL.exist_customer' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>{{ 'MODAL.new_customer' | translate }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  
+  <div [ngSwitch]="newCustomer">
+    <div *ngSwitchCase="1">
+      <ion-item lines="none" class="item-notes">
+        <ion-icon slot="start" color="primary" name="warning-outline"></ion-icon>
+        <ion-label style="font-weight: bold;" color="dark" text-wrap>{{ 'MODAL.supplier_note' | translate }}</ion-label>
+      </ion-item>
+      <div class="input-group">
+        <ion-item lines="none">
+          <ion-icon  (click)="scanBarcode()" slot="start" name="qr-code-outline" color="dark" size="large"></ion-icon>
+          <ion-label position="fixed">{{ 'MODAL.supplier_code_lbl' | translate }}</ion-label>
+          <ion-input type="text" placeholder="{{ 'MODAL.supplier_code' | translate }}" maxlength="8" minlength="8" [(ngModel)]="customer.oid" required></ion-input>
+        </ion-item>
+      </div>
+      <ion-button class="save-button"  expand="block" (click)="save()" [disabled]="customer.oid == '' || customer.oid.length != 8">{{ 'save' | translate }}</ion-button>
+    </div>
+
+    <div *ngSwitchCase="2">
+      <form [formGroup]="userFG">
+        <ion-card class="input-group">
+          <ion-card-header>
+            <ion-card-title>{{ 'REGISTER.user_data' | translate }}</ion-card-title>
+          </ion-card-header>
+    
+          <ion-item>
+            <ion-label type="text" position="fixed">{{ 'REGISTER.user_name' | translate }}</ion-label>
+            <ion-input maxlength="125" placeholder="{{ 'REGISTER.user_name' | translate }}" formControlName="name"></ion-input>
+          </ion-item>
+    
+          <ion-item lines="none">
+            <ion-label type="email" position="fixed">{{ 'REGISTER.email_phone' | translate }}</ion-label>
+            <ion-input maxlength="125" placeholder="{{ 'REGISTER.email_phone' | translate }}" formControlName="email"></ion-input>
+          </ion-item>
+          <div *ngIf="(userFG.get('email').dirty || userFG.get('email').touched)
+                    && validEmail()" class="errors">
+          </div>
+        </ion-card>
+      </form>
+    
+        <!-- customer -->
+        <form [formGroup]="otherFG">
+          <ion-card class="input-group">
+    
+            <ion-card-header>
+              <ion-card-title>{{ 'REGISTER.customer_data' | translate }}</ion-card-title>
+            </ion-card-header>
+    
+            <ion-item lines="full">
+              <ion-label position="fixed">{{ 'REGISTER.CUST.name' | translate }}</ion-label>
+              <ion-input formControlName="c_name" maxlength="125" placeholder="{{ 'REGISTER.CUST.name' | translate }}"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="fixed">{{ 'REGISTER.CUST.manager' | translate }}</ion-label>
+              <ion-input formControlName="manager" maxlength="125" placeholder="{{ 'REGISTER.CUST.manager' | translate }}"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="fixed">{{ 'REGISTER.CUST.city' | translate }}</ion-label>
+              <ion-select formControlName="city" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="fixed">{{ 'REGISTER.CUST.address' | translate }}</ion-label>
+              <ion-input formControlName="address" maxlength="125" placeholder="{{ 'REGISTER.CUST.address' | translate }}"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+              <ion-input formControlName="phone" maxlength="20" placeholder="{{ 'REGISTER.CUST.phone' | translate }}"></ion-input>
+            </ion-item>
+          </ion-card>
+        </form>
+      <ion-button class="save-button"  expand="block" (click)="save()" [disabled]="!userFG.valid || !otherFG.valid">{{ 'save' | translate }}</ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,28 @@
+<ion-list>
+
+  <ion-segment [value]="showType" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="2">
+      <ion-label>QRcode</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>Barcode</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
+  <div *ngIf="showType===2 || showType === '2'">
+    <ngx-qrcode 
+      [elementType]="elementType" 
+      [value]="qrData"
+      [width]="200">
+    </ngx-qrcode>
+    <div class="code-label">
+      <ion-label>{{qrData}}</ion-label>
+    </div>
+  </div>
+  
+  <div *ngIf="showType===1 || showType==='1'">
+    <ion-img class="barcode" [src]="textToBase64Barcode(qrData)"></ion-img>
+  </div>
+
+  <ion-item lines="none" detail="false" button (click)="closePopover()" color="danger">{{ "ADD.close" | translate }}</ion-item>
+</ion-list>

@@ -1,0 +1,63 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.reports" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+    <!-- <ion-card>
+      <ion-item lines="none">
+        <ion-icon name="warning-outline" slot="start" size="large" color="warning"></ion-icon>
+        <ion-card-header>
+          <ion-card-title text-wrap color="primary">{{ "REPORTS.soon" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card> -->
+
+    <ion-card *ngIf="userType == 1"  (click)="driverOrdersReport()">
+      <ion-item lines="none" button detail>
+        <ion-icon name="document-text-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>{{ "REPORTS.driver_orders" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="userType == 1"  (click)="customerOrdersReport()">
+      <ion-item lines="none" button detail>
+        <ion-icon name="document-text-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>{{ "REPORTS.customer_orders" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <!-- <ion-card *ngIf="userType == 1"  (click)="showReport()">
+      <ion-item lines="none" button detail>
+        <ion-icon name="document-text-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>{{ "REPORTS.drivers_details" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card *ngIf="userType == 1">
+      <ion-item lines="none" button detail>
+        <ion-icon name="document-text-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>{{ "REPORTS.drivers_general" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item lines="none" button detail>
+        <ion-icon name="document-text-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>{{ "REPORTS.orders_details" | translate}}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card> -->
+  </div>
+</ion-content>

@@ -1,0 +1,25 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.edit_order_driver' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+
+<ion-content>
+  <form [formGroup]="formGroup">
+
+    <div class="input-group">
+      <ion-item>
+        <ion-label type="text" position="fixed">{{ 'ORDER.driver' | translate }}</ion-label>
+        <ion-select formControlName="driver_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let driver of drivers" [value]="driver.id">{{driver.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

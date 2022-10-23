@@ -1,0 +1,42 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">{{'SETTINGS.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+  <ion-list>
+    <ion-list-header mode="ios" *ngIf="userType === 1">
+      <ion-label>{{'SETTINGS.company_logo' | translate}}</ion-label>
+    </ion-list-header>
+    <div class="profilepic-border" align="center" *ngIf="userType === 1">
+      <div class="insidepic">
+        <ion-img *ngIf="imageDataSource" (click)="selectImageSource()" [src]="imageDataSource"></ion-img>
+      </div>
+
+
+      <ion-button fill="outline" color="medium" class="profilebutton" (click)="selectImageSource()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-button>
+    </div>
+
+    <ion-radio-group [value]="currenctLanguage" (ionChange)="radioGroupChange($event)" mode="ios">
+      <ion-list-header>
+        <ion-label>{{'SETTINGS.language' | translate}}</ion-label>
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>{{'SETTINGS.english' | translate}}</ion-label>
+        <ion-radio slot="start" value="en"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>{{'SETTINGS.arabic' | translate}}</ion-label>
+        <ion-radio slot="start" value="ar"></ion-radio>
+      </ion-item>
+  
+    </ion-radio-group>
+  </ion-list>
+  </div>
+</ion-content>

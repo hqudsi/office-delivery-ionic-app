@@ -1,0 +1,13 @@
+<ion-list>
+  <ion-list-header>{{ "ORDER.STATUS.title" | translate }} ({{orderId}})</ion-list-header>
+  
+  <ion-item *ngFor="let status of statuses" lines="full">
+    <ion-icon *ngIf="status.notes" name="create-outline" slot="end" [color]="orderStatusColor(status.status_id)" (click)="showAlert(status.notes)"></ion-icon>
+    <ion-icon *ngIf="!status.notes" name="create-outline" slot="end" color="light"></ion-icon>
+    <ion-label [color]="orderStatusColor(status.status_id)">{{ status.status.name }}</ion-label>
+    <ion-label text-wrap [color]="orderStatusColor(status.status_id)">{{ status.created_at | dateTimeFormat: 'DD/MM/yyyy' }}<br/>{{status.created_at | dateTimeFormat: 'h:mm a'}}</ion-label>
+    <ion-icon [name]="orderStatusName(status.status_id)" slot="start" [color]="orderStatusColor(status.status_id)"></ion-icon>
+  </ion-item>
+
+  <ion-item lines="none" detail="false" button (click)="closePopover()" color="danger">{{ "ADD.close" | translate }}</ion-item>
+</ion-list>

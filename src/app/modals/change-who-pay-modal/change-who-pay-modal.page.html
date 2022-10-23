@@ -1,0 +1,45 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.change_who_pays' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group" >
+      <ion-list>
+        <ion-radio-group formControlName="who_pays" mode="md">
+          <ion-list-header>
+            <ion-label>{{'ORDER.MONEY.title' | translate}}</ion-label>
+          </ion-list-header>
+
+          <ion-item lines="none">
+            <ion-label>{{'ORDER.MONEY.on_sender' | translate}}</ion-label>
+            <ion-radio slot="start" value="1"></ion-radio>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>{{'ORDER.MONEY.on_reciver' | translate}}</ion-label>
+            <ion-radio slot="start" value="2"></ion-radio>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>{{'ORDER.MONEY.free' | translate}}</ion-label>
+            <ion-radio slot="start" value="3"></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-list>
+    </div>
+    <!-- <div class="input-group">
+      <ion-item lines="none">
+        <ion-label>{{ 'MODAL.notes' | translate }}</ion-label>
+        <ion-textarea maxlength="500" formControlName="notes"></ion-textarea>
+      </ion-item>
+    </div> -->
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

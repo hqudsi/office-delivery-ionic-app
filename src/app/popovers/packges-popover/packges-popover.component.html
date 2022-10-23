@@ -1,0 +1,23 @@
+<ion-list>
+  <ion-list-header>{{ "ORDER.PACKAGES.title" | translate }}</ion-list-header>
+  
+  <ion-item lines="full">
+    <ion-label>{{ 'ORDER.PACKAGES.pack_size' | translate  }}</ion-label>
+    <ion-label>{{ 'ORDER.PACKAGES.price' | translate }}</ion-label>
+    <ion-label>{{ 'ORDER.PACKAGES.quantity' | translate  }}</ion-label>
+    <ion-label>{{ 'ORDER.PACKAGES.package_total' | translate  }}</ion-label>
+    <ion-icon name="" slot="end"></ion-icon>
+  </ion-item>
+
+  <ion-item *ngFor="let package of packages" lines="full">
+    <ion-label color="dark">{{ package.pack_size.size }}</ion-label>
+    <ion-label color="dark">{{ package.amount | number }}</ion-label>
+    <ion-label color="dark">{{ package.quantity }}</ion-label>
+    <ion-label color="dark">{{ package.total }}</ion-label>
+    <ion-icon *ngIf="package.notes" name="eye-outline" slot="end" color="dark" (click)="showAlert(package.notes)"></ion-icon>
+    <ion-icon *ngIf="!package.notes" name="eye-outline" slot="end" color="light"></ion-icon>
+    <ion-icon *ngIf="canEdit && (userType === 1 || userType === 5)" name="create-outline" slot="end" color="dark" (click)="changePack(package)"></ion-icon>
+  </ion-item>
+
+  <ion-item lines="none" detail="false" button (click)="closePopover()" color="danger">{{ "ADD.close" | translate }}</ion-item>
+</ion-list>

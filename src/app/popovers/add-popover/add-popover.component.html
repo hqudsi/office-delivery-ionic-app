@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-list-header>{{ "ADD.header" | translate }}</ion-list-header>
+  <ion-item button [routerLink]="['/tabs/add-order']" *ngIf="userType != 3 && userType != 5" (click)="closePopover()">{{ "ADD.order" | translate }}</ion-item>
+  <ion-item button (click)="addReceipt()" *ngIf="false">{{ "ADD.receipt" | translate }}</ion-item>
+  <ion-item button (click)="loadingOrders()" *ngIf="userType == 1 || userType == 4">{{ "ADD.loading-orders" | translate }}</ion-item>
+  <ion-item button (click)="driverCollectionVoucher()" *ngIf="userType == 1 || userType == 5">{{ "ADD.driver-collection-voucher" | translate }}</ion-item>
+  <ion-item button (click)="companyPaymentVoucher()" *ngIf="userType == 1 || userType == 5">{{ "ADD.customer-payment-voucher" | translate }}</ion-item>
+  <ion-item button (click)="addMyCustomer()" *ngIf="userType == 1">{{ "ADD.mycustomer" | translate }}</ion-item>
+  <ion-item button (click)="addCity()" *ngIf="userType == 1">{{ "ADD.city" | translate }}</ion-item>
+  <ion-item button (click)="addNewUser()" *ngIf="userType == 1">{{ "ADD.user" | translate }}</ion-item>
+  <ion-item lines="none" detail="false" button (click)="closePopover()" color="danger">{{ "ADD.close" | translate }}</ion-item>
+</ion-list>

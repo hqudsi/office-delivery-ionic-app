@@ -1,0 +1,51 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <!-- <ion-title class="ion-text-center">{{ 'LOGIN.title' | translate }}</ion-title> -->
+    <ion-buttons slot="end" class="lang_header">
+      <ion-button (click)="changeLanguage($event)">
+        {{currenctLanguage}}
+      </ion-button>
+    </ion-buttons>
+
+    <div class="center">
+      <ion-img slot="end" src="assets/Beelivery.png"></ion-img>
+    </div>
+
+    <ion-buttons slot="start" class="about_header">
+      <ion-button  [routerLink]="['/about']">
+        <ion-icon style="margin: 0px;" slot="start" name="information-circle-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+    <div class="input-group">
+      <ion-item mode="ios" lines="full">
+        <ion-input maxlength="250" type="email" placeholder="{{ 'LOGIN.email_mobile' | translate }}" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="(email.dirty || email.touched) && validEmail()" class="errors">
+          <span *ngIf="email.errors?.required">{{ 'LOGIN.email_required' | translate }}</span>
+          <span *ngIf="!email.errors?.required">{{ 'LOGIN.email_mobile_invalid' | translate }}</span>
+      </div>
+      
+      <ion-item>
+        <ion-input (keyup.enter)="login()" maxlength="250" type="password" placeholder="{{ 'LOGIN.password' | translate }}" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+        <span *ngIf="password.errors?.required">{{ 'LOGIN.password_required' | translate }}</span>
+        <span *ngIf="password.errors?.minlength">{{ 'LOGIN.password_characters' | translate }}</span>
+      </div>
+    </div>
+
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid || validEmail()">{{ 'LOGIN.login' | translate }}</ion-button>
+    <ion-button (click)="resetPassword()" type="button" expand="block" color="dark" fill="clear">{{ 'LOGIN.forgot_password' | translate }}</ion-button>
+    
+    
+  </form>
+  </div>
+</ion-content>

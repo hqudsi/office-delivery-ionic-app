@@ -1,0 +1,61 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.add_payment' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'MODAL.package_cost' | translate }}</ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-input type="number" inputmode="tel" formControlName="package_cost" disabled></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed" style="opacity: 0.3;">{{ 'MODAL.trans_cost' | translate }}</ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-input type="text" formControlName="trans_cost" disabled></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input disabled type="text" *ngIf="order.order_costs[0].who_pays == 1"
+                value="{{'ORDER.MONEY.on_sender' | translate}}"></ion-input>
+              <ion-input disabled type="text" *ngIf="order.order_costs[0].who_pays == 2"
+                value="{{'ORDER.MONEY.on_reciver' | translate}}"></ion-input>
+              <ion-input disabled type="text" *ngIf="order.order_costs[0].who_pays == 3"
+                value="{{'ORDER.MONEY.free' | translate}}"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+    <ion-input type="hidden" formControlName="total" disabled ></ion-input>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'MODAL.amount' | translate }}</ion-label>
+        <ion-input type="number"  maxlength="250" clearInput inputmode="tel" required formControlName="received" disabled></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'MODAL.notes' | translate }}</ion-label>
+        <ion-input type="text" maxlength="250" formControlName="notes"></ion-input>
+      </ion-item>
+    </div>
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

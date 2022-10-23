@@ -1,0 +1,113 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.orders_statistics" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" [appStickySegment]="segmentcontrol">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="web-content-div">
+    <ion-card [routerLink]="['/tabs/orders']">
+      <ion-item lines="none" button detail>
+        <ion-icon name="bag-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.all" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.allOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card (click)="showDetails(1)" *ngIf="userType != 3">
+      <ion-item lines="none" button detail>
+        <ion-icon name="bag-add-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.newOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.newOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card (click)="showDetails(2)" *ngIf="userType != 3">
+      <ion-item lines="none" button detail>
+        <ion-icon name="business-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.incompanyOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.incompanyOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card (click)="showDetails(3)" *ngIf="userType != 3">
+      <ion-item lines="none" button detail>
+        <ion-icon name="git-branch-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.sortingOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.sortingOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card (click)="showDetails(4)">
+      <ion-item lines="none" button detail>
+        <ion-icon name="pause-circle-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.parkedOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.parkedOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card (click)="showDetails(5)">
+      <ion-item lines="none" button detail>
+        <ion-icon name="bag-handle-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.inprogressOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.inprogressOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card (click)="showDetails(6)">
+      <ion-item lines="none" button detail>
+        <ion-icon name="bag-check-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.deliveredOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.deliveredOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card (click)="showDetails(7)">
+      <ion-item lines="none" button detail>
+        <ion-icon name="bag-remove-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.returnOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.returnOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card (click)="showDetails(8)" *ngIf="userType != 3">
+      <ion-item lines="none" button detail>
+        <ion-icon name="close-circle-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle>{{ "ORDER_STAT.canceledOrders" | translate}}</ion-card-subtitle>
+          <ion-card-title *ngIf="statistics">{{ statistics.canceledOrders }}</ion-card-title>
+          <ion-skeleton-text *ngIf="!statistics" animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+    
+  </div>
+</ion-content>

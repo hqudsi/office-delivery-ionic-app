@@ -1,0 +1,387 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button icon="close" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ 'ORDER.add_order' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" [appStickySegment]="segmentcontrol">
+  <div class="web-content-div">
+    
+    <div class="incline-line-1"></div>
+    <div class="incline-line-2"></div>
+    <div class="incline-line-3"></div>
+    <!-- ion-segment -->
+    <ion-segment color="primary" [value]="currenctSegment" mode="md">
+      <ion-segment-button *ngFor="let itemCat of categories" value={{itemCat.key}} (click)="changeSegment(itemCat.key)">
+        <ion-label class="segment-label">{{ itemCat.label | translate }}</ion-label>
+        <ion-icon [name]="itemCat.icon" [color]="itemCat.iconColor"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+    <!-- end-ion-segment -->
+    <div [ngSwitch]="currenctSegment">
+      <div *ngSwitchCase="'orderHeader'">
+        <form [formGroup]="headerFG">
+          <div class="input-group" *ngIf="user.type === 2">
+            <ion-item lines="none">
+              <ion-label>{{ 'ORDER.company' | translate }}</ion-label>
+              <ion-select [disabled]="!companies" formControlName="company" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let company of companies" [value]="company.id">{{company.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <!-- <div class="input-group" *ngIf="false">
+            <ion-item lines="none" class="select-item">
+              <ion-label>{{ 'ORDER.driver' | translate }}</ion-label>
+              <ion-select [disabled]="!drivers" formControlName="driver" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let driver of drivers" [value]="driver.id">{{driver.name}}
+                </ion-select-option>
+              </ion-select>
+              <ion-buttons slot="end">
+                <ion-button (click)="clear()">
+                  <ion-icon name="close" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+          </div> -->
+          <div class="input-group" *ngIf="user.type !== 2">
+            <ion-item lines="none">
+              <ion-label>{{ 'ORDER.supplier' | translate }}</ion-label>
+              <ion-select [disabled]="!customers" formControlName="customer" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let customer of customers" [value]="customer.id">{{customer.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.customer' | translate }}</ion-label>
+              <ion-input maxlength="250" placeholder="{{ 'ORDER.customer' | translate }}" formControlName="end_customer_name"></ion-input>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label>{{ 'ORDER.city' | translate }}</ion-label>
+              <ion-select [disabled]="!cities" formControlName="to" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.address' | translate }}</ion-label>
+              <ion-input maxlength="250" placeholder="{{ 'ORDER.address' | translate }}" formControlName="end_customer_address">
+              </ion-input>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.phone' | translate }}</ion-label>
+              <ion-input inputmode="tel" appOnlyNumber maxlength="20" placeholder="{{ 'ORDER.phone' | translate }}" formControlName="end_customer_phone"></ion-input>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.due_date' | translate }}</ion-label>
+              <!-- <ion-input placeholder="Due Date" formControlName="due_date"></ion-input> -->
+              <!-- <ion-datetime [max]="maxDate" [min]="minDate" displayFormat="MM/DD/YYYY HH:mm" pickerFormat="mm HH YYYY MMM D" [(ngModel)]="event.startTime"></ion-datetime> -->
+              <ion-datetime placeholder="{{ 'ORDER.due_date' | translate }}" displayFormat="DD/MM/YYYY"
+                pickerFormat="D MMM YYYY" [min]="minDate" [max]="maxDate" formControlName="due_date">
+              </ion-datetime>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.manual_number' | translate }}</ion-label>
+              <ion-input maxlength="500" placeholder="{{ 'ORDER.manual_number' | translate }}" formControlName="manual_number"></ion-input>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{ 'ORDER.notes' | translate }}</ion-label>
+              <ion-input maxlength="500" placeholder="{{ 'ORDER.notes' | translate }}" formControlName="notes"></ion-input>
+            </ion-item>
+          </div>
+
+        </form>
+      </div>
+      <div *ngSwitchCase="'orderItems'">
+        <form [formGroup]="itemFG">
+          <div class="input-group">
+            <ion-item lines="none" disabled="true">
+              <ion-label position="fixed">{{ 'ORDER.package_total' | translate }}</ion-label>
+              <ion-input maxlength="250" appTwoDigitNumber type="text" inputmode="tel" formControlName="total"></ion-input>
+            </ion-item>
+          </div>
+        </form>
+
+        <div class="input-group" *ngFor="let package of packages; let idx = index">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9">
+                <div class="input-group">
+                  <ion-item lines="none">
+                    <ion-label>{{ 'ORDER.pack_size' | translate }}</ion-label>
+                    <ion-select [(ngModel)]="packages[idx].pack_size" interface="action-sheet" mode="ios">
+                      <ion-select-option *ngFor="let packSize of packSizes" [value]="packSize.id">{{packSize.size}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+                <div class="input-group">
+                  <ion-item lines="none">
+                    <ion-label position="fixed">{{ 'ORDER.quantity' | translate }}</ion-label>
+                    <ion-input maxlength="4" appOnlyNumber type="number" inputmode="tel" placeholder="{{ 'ORDER.quantity' | translate }}"
+                      [(ngModel)]="packages[idx].quantity" (ionChange)="changePackage(idx)"></ion-input>
+                  </ion-item>
+                </div>
+                <div class="input-group">
+                  <ion-item lines="none">
+                    <ion-label position="fixed">{{ 'ORDER.price' | translate }}</ion-label>
+                    <ion-input appTwoDigitNumber type="number" inputmode="tel" placeholder="{{ 'ORDER.price' | translate }}"
+                      [(ngModel)]="packages[idx].price" (ionChange)="changePackage(idx)"></ion-input>
+                  </ion-item>
+                </div>
+                <div class="input-group">
+                  <ion-item lines="none">
+                    <ion-label position="fixed">{{ 'ORDER.notes' | translate }}</ion-label>
+                    <ion-input type="text" maxlength="124" placeholder="{{ 'ORDER.notes' | translate }}"
+                      [(ngModel)]="packages[idx].notes" (ionChange)="changePackage(idx)"></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+              <ion-col class="ion-align-self-center">
+                <ion-button fill="none" expand="full" (click)="deletePackage(idx)">
+                  <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </div>
+
+        <div class="button-group">
+          <ion-button expand="block" (click)="addPackage()">{{ 'ORDER.add_pack' | translate }}</ion-button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'orderPayment'">
+        <form [formGroup]="paymentFG">
+          <div class="input-group">
+            <ion-list>
+              <ion-radio-group formControlName="pay_on_delivery" mode="md">
+                <ion-list-header>
+                  <ion-label>{{'ORDER.COLLECT.title' | translate}}</ion-label>
+                </ion-list-header>
+
+                <ion-item lines="none">
+                  <ion-label>{{'ORDER.COLLECT.yes' | translate}}</ion-label>
+                  <ion-radio slot="start" value="1"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-label>{{'ORDER.COLLECT.no' | translate}}</ion-label>
+                  <ion-radio slot="start" value="0"></ion-radio>
+                </ion-item>
+
+              </ion-radio-group>
+            </ion-list>
+          </div>
+          <div class="input-group">
+            <ion-list>
+              <ion-radio-group formControlName="who_pays" mode="md">
+                <ion-list-header>
+                  <ion-label>{{'ORDER.MONEY.title' | translate}}</ion-label>
+                </ion-list-header>
+
+                <ion-item lines="none">
+                  <ion-label>{{'ORDER.MONEY.on_sender' | translate}}</ion-label>
+                  <ion-radio slot="start" value="1"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-label>{{'ORDER.MONEY.on_reciver' | translate}}</ion-label>
+                  <ion-radio slot="start" value="2"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none">
+                  <ion-label>{{'ORDER.MONEY.free' | translate}}</ion-label>
+                  <ion-radio slot="start" value="3"></ion-radio>
+                </ion-item>
+
+              </ion-radio-group>
+            </ion-list>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none" disabled="true">
+              <ion-label position="fixed">{{'ORDER.MONEY.quantity' | translate}}</ion-label>
+              <ion-input maxlength="6"  type="text" inputmode="tel" formControlName="packages_count"></ion-input>
+              <ion-input type="hidden"  formControlName="packages_cost"></ion-input>
+            </ion-item>
+          </div>
+          <div class="input-group">
+            <ion-item lines="none">
+              <ion-label position="fixed">{{'ORDER.MONEY.title' | translate}}</ion-label>
+              <ion-input appTwoDigitNumber type="number" inputmode="tel" placeholder="{{'ORDER.MONEY.title' | translate}}" formControlName="trans_cost">
+              </ion-input>
+            </ion-item>
+          </div>
+        </form>
+      </div>
+      <!--------- start review --------->
+      <div *ngSwitchCase="'orderReview'">
+        <div class="input-group">
+
+          <form [formGroup]="headerFG">
+
+            <ion-item lines="none" disabled="true" class="review-item" *ngIf="user.type === 2">
+              <ion-label color="dark">{{ 'ORDER.company' | translate }}</ion-label>
+              <ion-select formControlName="company" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let company of companies" [value]="company.id">{{company.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            
+            <!-- <ion-item lines="none" disabled="true" class="review-item" *ngIf="user.type === 1 || user.type === 2">
+              <ion-label color="dark">{{ 'ORDER.driver' | translate }}</ion-label>
+              <ion-select formControlName="driver" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let driver of drivers" [value]="driver.id">{{driver.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item> -->
+
+            <ion-item lines="none" disabled="true" class="review-item" *ngIf="user.type === 1 || user.type === 3">
+              <ion-label color="dark">{{ 'ORDER.supplier' | translate }}</ion-label>
+              <ion-select formControlName="customer" interface="action-sheet" mode="ios">
+                <ion-select-option *ngFor="let customer of customers" [value]="customer.id">{{customer.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.customer' | translate }}</ion-label>
+              <ion-input  placeholder="{{ 'ORDER.customer' | translate }}" formControlName="end_customer_name"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark">{{ 'ORDER.city' | translate }}</ion-label>
+              <ion-select formControlName="to">
+                <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.address' | translate }}</ion-label>
+              <ion-input  placeholder="{{ 'ORDER.address' | translate }}" formControlName="end_customer_address">
+              </ion-input>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.phone' | translate }}</ion-label>
+              <ion-input  placeholder="{{ 'ORDER.phone' | translate }}" formControlName="end_customer_phone"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.due_date' | translate }}</ion-label>
+              <ion-datetime placeholder="{{ 'ORDER.due_date' | translate }}" displayFormat="DD/MM/YYYY"
+                pickerFormat="D MMM YYYY" formControlName="due_date">
+              </ion-datetime>
+            </ion-item>
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.notes' | translate }}</ion-label>
+              <ion-input  placeholder="{{ 'ORDER.notes' | translate }}" formControlName="notes"></ion-input>
+            </ion-item>
+
+          </form>
+
+          <form [formGroup]="itemFG">
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{ 'ORDER.package_total' | translate }}</ion-label>
+              <ion-input  type="text" inputmode="tel" formControlName="total"></ion-input>
+            </ion-item>
+          </form>
+
+          <form [formGroup]="paymentFG">
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{'ORDER.MONEY.quantity' | translate}}</ion-label>
+              <ion-input  type="text" inputmode="tel" formControlName="packages_count"></ion-input>
+            </ion-item>
+
+            <ion-list>
+              <ion-radio-group formControlName="pay_on_delivery">
+                <ion-label color="dark" position="fixed">{{'ORDER.COLLECT.title' | translate}}</ion-label>
+
+                <ion-item lines="none" disabled="true" class="review-item" *ngIf="paymentFG.get('pay_on_delivery').value == 1">
+                  <ion-label color="dark">{{'ORDER.COLLECT.yes' | translate}}</ion-label>
+                  <ion-radio slot="start" value="1" mode="ios"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none" disabled="true" class="review-item" *ngIf="paymentFG.get('pay_on_delivery').value == 0">
+                  <ion-label color="dark">{{'ORDER.COLLECT.no' | translate}}</ion-label>
+                  <ion-radio slot="start" value="0" mode="ios"></ion-radio>
+                </ion-item>
+
+              </ion-radio-group>
+            </ion-list>
+
+
+            <ion-list>
+              <ion-radio-group formControlName="who_pays">
+                <ion-label color="dark">{{'ORDER.MONEY.title' | translate}}</ion-label>
+                <ion-item lines="none" disabled="true" class="review-item" *ngIf="paymentFG.get('who_pays').value == 1">
+                  <ion-label color="dark">{{'ORDER.MONEY.on_sender' | translate}}</ion-label>
+                  <ion-radio slot="start" value="1" mode="ios"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none" disabled="true" class="review-item" *ngIf="paymentFG.get('who_pays').value == 2">
+                  <ion-label color="dark">{{'ORDER.MONEY.on_reciver' | translate}}</ion-label>
+                  <ion-radio slot="start" value="2" mode="ios"></ion-radio>
+                </ion-item>
+
+                <ion-item lines="none" disabled="true" class="review-item" *ngIf="paymentFG.get('who_pays').value == 3">
+                  <ion-label color="dark">{{'ORDER.MONEY.free' | translate}}</ion-label>
+                  <ion-radio slot="start" value="3" mode="ios"></ion-radio>
+                </ion-item>
+
+              </ion-radio-group>
+            </ion-list>
+
+
+            
+
+
+            <ion-item lines="none" disabled="true" class="review-item">
+              <ion-label color="dark" position="fixed">{{'ORDER.MONEY.title' | translate}}</ion-label>
+              <ion-input type="text" inputmode="tel"  placeholder="{{'ORDER.MONEY.title' | translate}}" formControlName="trans_cost">
+              </ion-input>
+            </ion-item>
+
+          </form>
+
+        </div>
+      </div>
+      <!--------- end review --------->
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <div style="width: 100%; background-color: white;">
+    <ion-toolbar class="web-content-div">
+      <ion-button *ngIf="currenctIndex > 0" fill="outline" slot="start" class="footer-button"
+        (click)="previousSegment()">
+        <ion-icon name="arrow-back-outline"></ion-icon> {{ 'back' | translate }} 
+      </ion-button>
+      <ion-button *ngIf="currenctIndex < 3" slot="end" class="footer-button" (click)="nextSegment()">
+        {{ 'next' | translate }} <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="currenctIndex == 3" slot="end" class="footer-button" (click)="approve()">
+        {{ 'approve' | translate }} <ion-icon name="checkmark-done-outline"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+  </div>
+</ion-footer>

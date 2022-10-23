@@ -1,0 +1,103 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.dashboard" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" [appStickySegment]="segmentcontrol">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, 1000, $event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <div style="width: 100%; background-color: white;">
+    <ion-toolbar class="web-content-div">
+      <ion-icon (click)="scanBarcode()" slot="start" name="qr-code-outline" color="dark" size="large"
+      [ngClass]="direction === 'rtl' ? 'seachbutton-right' : 'seachbutton-left'"></ion-icon>
+      <ion-searchbar [(ngModel)]="searchValue" placeholder="{{ 'DASHBOARD.search_title' | translate }}" mode="ios"
+      (search)="yourSearchFunction($event.target.value)"
+      showCancelButton="never" class="seachbar-class"></ion-searchbar>
+      <ion-button (click)="search()" slot="end"
+        [ngClass]="direction === 'rtl' ? 'seachbutton-left' : 'seachbutton-right'">{{ 'DASHBOARD.track' | translate }}
+      </ion-button>
+    </ion-toolbar>
+  </div>
+
+<div class="web-content-div">
+  <div *ngIf="ordersData">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card class="border-new">
+            <ion-item lines="none">
+              <ion-card-header>
+                <ion-card-subtitle>{{ "DASHBOARD.newOrders" | translate}}</ion-card-subtitle>
+                <ion-card-title *ngIf="ordersData.length>0">{{ ordersData[0] }}</ion-card-title>
+                <ion-skeleton-text *ngIf="ordersData.length==0" animated style="width: 100%"></ion-skeleton-text>
+              </ion-card-header>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="border-incompany">
+            <ion-item lines="none">
+              <ion-card-header>
+                <ion-card-subtitle>{{ "DASHBOARD.incompanyOrders" | translate}}</ion-card-subtitle>
+                <ion-card-title>{{ ordersData[1] }}</ion-card-title>
+                <ion-skeleton-text *ngIf="ordersData.length==0" animated style="width: 100%"></ion-skeleton-text>
+              </ion-card-header>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-card class="border-inprogress">
+            <ion-item lines="none">
+              <ion-card-header>
+                <ion-card-subtitle>{{ "DASHBOARD.inprogressOrders" | translate}}</ion-card-subtitle>
+                <ion-card-title>{{ ordersData[4] }}</ion-card-title>
+                <ion-skeleton-text *ngIf="ordersData.length==0" animated style="width: 100%"></ion-skeleton-text>
+              </ion-card-header>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="border-parked">
+            <ion-item lines="none">
+              <ion-card-header>
+                <ion-card-subtitle>{{ "DASHBOARD.parkedOrders" | translate}}</ion-card-subtitle>
+                <ion-card-title>{{ ordersData[3] }}</ion-card-title>
+                <ion-skeleton-text *ngIf="ordersData.length==0" animated style="width: 100%"></ion-skeleton-text>
+              </ion-card-header>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-card>
+    <ion-card-header style="text-align: center;">
+      <ion-card-title color="primary">{{ 'DASHBOARD.orders' | translate }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #pieCanvasOrders></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="userType != 4 && userType != 5">
+    <ion-card-header style="text-align: center;">
+      <ion-card-title *ngIf="collection" color="primary">
+        {{ 'DASHBOARD.cash_collection' | translate:{number: collection} }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #pieCanvasCollections></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  
+  </div>
+</ion-content>

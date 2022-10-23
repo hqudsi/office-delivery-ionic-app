@@ -1,0 +1,67 @@
+ion-title {
+    font-weight: 500;
+  }
+
+.header-padding {
+    --padding-start: var(--ion-padding, 5px);
+    --padding-end: var(--ion-padding, 5px);
+    --padding-top: var(--ion-padding, 5px);
+    --padding-bottom: var(--ion-padding, 5px);
+    padding-left: var(--ion-padding, 5px);
+    padding-right: var(--ion-padding, 5px);
+    padding-top: var(--ion-padding, 5px);
+    padding-bottom: var(--ion-padding, 5px);
+}
+
+ion-avatar img{
+    border: 2px solid var(--ion-color-primary) !important;
+  }
+
+  
+ion-grid {
+  padding: 0 !important;
+  margin-top: 5px !important;
+}
+
+ion-col {
+  padding: 0 !important;
+}
+
+ion-card {
+  margin-inline: 5px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  border-radius: 10px;
+}
+
+ion-card-header {
+  padding: 5px !important;
+}
+
+ion-toggle {
+  padding: 16px 5px 8px 5px !important;
+}
+
+.border-all {
+  border-right: 10px solid silver;
+}
+
+.border-new {
+  border-right: 10px solid rgb(236, 236, 236);
+}
+
+.border-inprogress {
+  border-right: 10px solid var(--ion-color-in-progress-order);
+}
+
+.border-done {
+  border-right: 10px solid var(--ion-color-delivered-order);
+}
+
+.border-cancel {
+  border-right: 10px solid var(--ion-color-canceled-order);
+}
+
+.border-back {
+  border-right: 10px solid var(--ion-color-return-order);
+}

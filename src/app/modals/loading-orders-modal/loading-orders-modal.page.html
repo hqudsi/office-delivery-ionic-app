@@ -1,0 +1,48 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'ADD.loading-orders' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+
+<ion-content>
+  <ion-item lines="none" class="item-notes">
+    <ion-icon slot="start" color="primary" name="warning-outline"></ion-icon>
+    <ion-label style="font-weight: bold;" color="dark" text-wrap>{{ 'MODAL.loading_note' | translate }}</ion-label>
+  </ion-item>
+  <form [formGroup]="formGroup">
+<!-- [(ngModel)]="city.name" -->
+    <div class="input-group">
+      <ion-item>
+        <ion-label type="text" position="fixed">{{ 'ORDER.driver' | translate }}</ion-label>
+        <ion-select [disabled]="!drivers" formControlName="driver_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let driver of drivers" [value]="driver.id">{{driver.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>    
+  </form>
+  <div class="input-group">
+    <ion-searchbar (search)="search($event)" mode="ios" [disabled]="!orders" (ionInput)="inputSearh($event)"></ion-searchbar>
+    <ion-list class="orders-list">
+      <div *ngFor="let order of orders">
+        <ion-item *ngIf="order.display">
+          <ion-label>{{order.oid}}</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="order.isChecked"></ion-checkbox>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+  <div class="input-group">
+    <ion-label color="danger" type="text" position="fixed">{{ 'TABS.not_found_orders_text' | translate }}</ion-label>
+    <ion-textarea
+      autoGrow="true"
+      readonly
+      [(ngModel)]="not_found_orders_text">
+    </ion-textarea>
+  </div>
+
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

@@ -1,0 +1,20 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.add_city' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+
+  <div class="input-group">
+    <ion-item lines="none">
+      <ion-label position="fixed">{{ 'MODAL.city' | translate }}</ion-label>
+      <ion-input type="text" placeholder="{{ 'MODAL.city' | translate }}" maxlength="56" [(ngModel)]="city.name" required></ion-input>
+    </ion-item>
+  </div>
+  <ion-button class="save-button"  expand="block" (click)="save()" [disabled]="city.name == ''">{{ 'save' | translate }}</ion-button>
+
+</ion-content>

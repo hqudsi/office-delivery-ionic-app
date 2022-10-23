@@ -1,0 +1,63 @@
+ion-header {
+  margin-top: 56px;
+}
+
+ion-title {
+  font-weight: 500;
+}
+
+.seachbutton-left {
+  height: 34px;
+  --border-radius: 10px;
+  margin-left: 10px;
+}
+
+.seachbutton-right {
+  height: 34px;
+  --border-radius: 10px;
+  margin-right: 10px;
+}
+
+.seachbar-class {
+  padding: 12px;
+}
+
+ion-grid {
+  padding: 0 !important;
+  margin-top: 5px !important;
+}
+
+ion-col {
+  padding: 0 !important;
+}
+
+ion-card {
+  margin-inline: 5px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  border-radius: 10px;
+}
+
+ion-card-header {
+  padding: 5px !important;
+}
+
+.border-all {
+  border-right: 10px solid silver;
+}
+
+.border-new {
+  border-right: 10px solid rgb(236, 236, 236);
+}
+.border-incompany {
+  border-right: 10px solid var(--ion-color-in-company-order);
+}
+.border-inprogress {
+  border-right: 10px solid var(--ion-color-in-progress-order);
+}
+.border-parked {
+  border-right: 10px solid var(--ion-color-parked-order);
+}
+// ion-col {
+//   padding: 0 !important;
+// }

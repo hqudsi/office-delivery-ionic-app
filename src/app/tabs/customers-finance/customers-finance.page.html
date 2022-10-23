@@ -1,0 +1,27 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary" *ngIf="userType != 2">{{ "FINANCE.money_to_customers" | translate }}</ion-title>
+    <ion-title class="ion-text-center" color="primary" *ngIf="userType == 2">{{ "FINANCE.money_from_companies" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" [appStickySegment]="segmentcontrol">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="web-content-div">
+  <div *ngIf="data">
+    <ion-card *ngFor="let item of data">
+      <ion-item (click)="showDetails(item)" lines="none" button detail>
+        <ion-icon name="card-outline" slot="start" size="large"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle *ngIf="userType == 2">{{ item.company.name }}</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="userType != 2">{{ item.customer.name }}</ion-card-subtitle>
+          <ion-card-title *ngIf="userType == 2">{{ item.collection * -1 | number : '1.2-2' }}</ion-card-title>
+          <ion-card-title *ngIf="userType != 2">{{ item.collection | number : '1.2-2' }}</ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+  </div>
+  </div>
+</ion-content>

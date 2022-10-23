@@ -1,0 +1,44 @@
+ion-header {
+  margin-top: 56px;
+}
+
+ion-title {
+  font-weight: 500;
+}
+
+ion-list {
+  padding-top: 0px !important;
+  margin-top: 15px;
+}
+
+ion-img {
+  // margin-top: 15px;
+  height: 250px;
+  width: 250px;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+.profilebutton{
+  z-index: +2;
+  margin: 0px;
+  width: 250px;
+  --border-radius: 0px;
+}
+
+.insidepic {
+  height: 250px;
+  width: 250px;
+  border: 0.5px solid lightgray;
+}
+
+.profilepic{
+  width: 100%;
+  height: 100%;
+  border-color: transparent;
+}
+
+.profilepic-border{
+  margin-top: 15px;
+  // background:  #dddddd ;
+}

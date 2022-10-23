@@ -1,0 +1,46 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar>
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.customers" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" [appStickySegment]="segmentcontrol">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="web-content-div">
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label color="primary" class="order-header">{{ 'name' | translate }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label color="primary" class="order-header">{{ 'manager' | translate }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label color="primary" class="order-header">{{ 'city' | translate }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-virtual-scroll [items]="customers" approxItemHeight="{{approxItemHeight}}">
+    <ion-item *virtualItem="let customer" (click)="showDetails(customer)" button detail>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label color="dark" class="order-item">{{ customer.name }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="dark" class="order-item">{{ customer.manager }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="dark" class="order-item">{{ customer.city.name }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-virtual-scroll>
+  </div>
+</ion-content>

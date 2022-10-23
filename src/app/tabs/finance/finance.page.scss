@@ -1,0 +1,27 @@
+ion-header {
+  margin-top: 56px;
+}
+
+ion-title {
+  font-weight: 500;
+}
+
+ion-card-header {
+  padding: 8px;
+  width: 100%;
+}
+
+ion-card {
+  border-radius: 25px;
+  min-height: 64px;
+}
+
+.show-all-button {
+  --border-radius: 25px;
+  margin: 15px;
+}
+
+.rotate-180 {
+  // display: inline-block;
+  transform: rotate(180deg);
+}

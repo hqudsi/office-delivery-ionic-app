@@ -1,0 +1,148 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title class="ion-text-center">{{ 'REGISTER.title' | translate }}</ion-title> -->
+    <div class="center">
+      <ion-img slot="end" src="assets/Beelivery.png"></ion-img>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+  <ion-segment [(ngModel)]="regAs" mode="ios">
+    <ion-segment-button value="1">
+      <ion-label>{{ 'REGISTER.company' | translate }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>{{ 'REGISTER.customer' | translate }}</ion-label>
+    </ion-segment-button>
+    <!-- <ion-segment-button value="3">
+      <ion-label>{{ 'REGISTER.driver' | translate }}</ion-label>
+    </ion-segment-button> -->
+  </ion-segment>
+  <!-- notes -->
+  <ion-item lines="none" class="item-notes" *ngIf="regAs == 1">
+    <ion-icon slot="start" color="warning" name="warning-outline"></ion-icon>
+    <ion-label color="light" text-wrap>{{ 'REGISTER.company_note' | translate }}</ion-label>
+  </ion-item>
+  <ion-item lines="none" class="item-notes" *ngIf="regAs == 2">
+    <ion-icon slot="start" color="warning" name="warning-outline"></ion-icon>
+    <ion-label color="light" text-wrap>{{ 'REGISTER.supplier_note' | translate }}</ion-label>
+  </ion-item>
+  <ion-item lines="none" class="item-notes" *ngIf="regAs == 3">
+    <ion-icon slot="start" color="warning" name="warning-outline"></ion-icon>
+    <ion-label color="light" text-wrap>{{ 'REGISTER.driver_note' | translate }}</ion-label>
+  </ion-item>
+  <!-- user data -->
+  <form [formGroup]="userFG">
+    <ion-card class="input-group">
+      <ion-card-header>
+        <ion-card-title>{{ 'REGISTER.user_data' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label type="text" position="fixed">{{ 'REGISTER.user_name' | translate }}</ion-label>
+        <ion-input maxlength="125" placeholder="{{ 'REGISTER.user_name' | translate }}" formControlName="name"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios" lines="full">
+        <ion-label type="email" position="fixed">{{ 'REGISTER.email_phone' | translate }}</ion-label>
+        <ion-input maxlength="125" placeholder="{{ 'REGISTER.email_phone' | translate }}" formControlName="email"></ion-input>
+      </ion-item>
+      <div *ngIf="(email.dirty || email.touched) && validEmail()" class="errors">
+          <span *ngIf="email.errors?.required">{{ 'LOGIN.email_required' | translate }}</span>
+          <span *ngIf="!email.errors?.required">{{ 'LOGIN.email_mobile_invalid' | translate }}</span>
+      </div>
+
+      <ion-item>
+        <ion-label position="fixed">{{ 'REGISTER.password' | translate }}</ion-label>
+        <ion-input maxlength="125" type="password" placeholder="{{ 'REGISTER.password' | translate }}" formControlName="password"></ion-input>
+      </ion-item>
+      <div *ngIf="(password.dirty || password.touched) && password.errors" class="errors">
+        <span *ngIf="password.errors?.required">{{ 'LOGIN.password_required' | translate }}</span>
+        <span *ngIf="password.errors?.minlength">{{ 'LOGIN.password_characters' | translate }}</span>
+      </div>
+      
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'REGISTER.confirm' | translate }}</ion-label>
+        <ion-input maxlength="125" type="password" placeholder="{{ 'REGISTER.confirm_password' | translate }}" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+      <div *ngIf="(confirmPassword.dirty || confirmPassword.touched) && userFG.hasError('notSame')" class="errors">
+        <span>{{ 'REGISTER.pass_not_match' | translate }}</span>
+      </div>
+
+    </ion-card>
+  </form>
+
+    <!-- customer -->
+    <div *ngIf="regAs==1 || regAs==2">
+      <form [formGroup]="otherFG">
+        <ion-card class="input-group">
+          <ion-card-header *ngIf="regAs==1">
+            <ion-card-title>{{ 'REGISTER.company_data' | translate }}</ion-card-title>
+          </ion-card-header>
+  
+          <ion-card-header *ngIf="regAs==2">
+            <ion-card-title>{{ 'REGISTER.customer_data' | translate }}</ion-card-title>
+          </ion-card-header>
+  
+          <ion-item lines="full">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.name' | translate }}</ion-label>
+            <ion-input formControlName="c_name" maxlength="125" placeholder="{{ 'REGISTER.CUST.name' | translate }}"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.manager' | translate }}</ion-label>
+            <ion-input formControlName="manager" maxlength="125" placeholder="{{ 'REGISTER.CUST.manager' | translate }}"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.city' | translate }}</ion-label>
+            <ion-select formControlName="city" interface="action-sheet" mode="ios">
+              <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.address' | translate }}</ion-label>
+            <ion-input formControlName="address" maxlength="125" placeholder="{{ 'REGISTER.CUST.address' | translate }}"></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+            <ion-input formControlName="phone" appOnlyNumber maxlength="20" placeholder="{{ 'REGISTER.CUST.phone' | translate }}"></ion-input>
+          </ion-item>
+        </ion-card>
+      </form>      
+    </div>
+    <!-- driver -->
+    <div *ngIf="regAs==3">
+      <form [formGroup]="driverFG">
+        <ion-card class="input-group">
+          <ion-card-header>
+            <ion-card-title>{{ 'REGISTER.drvier_data' | translate }}</ion-card-title>
+          </ion-card-header>
+          <ion-item lines="none">
+            <ion-label position="fixed">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+            <ion-input formControlName="phone" appOnlyNumber maxlength="20" placeholder="{{ 'REGISTER.CUST.phone' | translate }}"></ion-input>
+          </ion-item>
+        </ion-card>
+      </form>
+    </div>
+    <div *ngIf="regAs==3">
+      <form [formGroup]="driverFG">
+        <ion-card class="input-group">
+          <ion-card-header>
+            <ion-card-title>{{ 'REGISTER.company_data' | translate }}</ion-card-title>
+          </ion-card-header>
+          <ion-item lines="none">
+            <ion-label position="fixed">{{ 'REGISTER.company_oid' | translate }}</ion-label>
+            <ion-input formControlName="company_oid" maxlength="8" placeholder="{{ 'REGISTER.company_oid' | translate }}"></ion-input>
+          </ion-item>
+        </ion-card>
+      </form>
+    </div>
+
+  <ion-button disabled (click)="register()" type="button" expand="block">{{ 'REGISTER.register' | translate }}</ion-button>
+    
+</div>
+</ion-content>

@@ -1,0 +1,131 @@
+<ion-header mode="md" #segmentcontrol>
+  <ion-toolbar class="header-bar">
+    <!-- <ion-icon slot="start" color="primary" class="filter" name="funnel-outline" button  (click)="filter()"></ion-icon> -->
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.orders" | translate }}</ion-title>
+    <ion-icon *ngIf="top > 0" class="header-icon" (click)="scrollToTop()" slot="end" color="primary" name="caret-up-circle-outline"></ion-icon>
+    <ion-icon *ngIf="top == 0" class="header-icon" slot="end" color="light" name=""></ion-icon>
+  </ion-toolbar>
+  <div style="width: 100%; background-color: white;">
+    <ion-toolbar class="filter-bar">
+      <ion-buttons slot="end" *ngIf="userType!=5 && userType!=2">
+        <ion-button [disabled]="!selectedSome || !selectedSameStatus" class="no-upper" (click)="changeStatus()" color="primary">
+          <ion-icon *ngIf="selectedSome && selectedSameStatus" slot="icon-only" color="primary" class="header-icon" name="swap-horizontal-outline"></ion-icon>
+          <ion-icon *ngIf="!selectedSome || !selectedSameStatus" slot="icon-only" color="dark" class="header-icon" name="swap-horizontal-outline"></ion-icon>
+        </ion-button>
+        <ion-button [disabled]="!selectedSome" class="no-upper" (click)="print()">
+          <ion-icon *ngIf="selectedSome" slot="icon-only" color="primary" class="header-icon" name="print-outline"></ion-icon>
+          <ion-icon *ngIf="!selectedSome" slot="icon-only" color="dark" class="header-icon" name="print-outline"></ion-icon>
+        </ion-button>
+        <ion-button [disabled]="!selectedSome" *ngIf="userType === 1" class="no-upper" (click)="deleteOrder()">
+          <ion-icon *ngIf="selectedSome" slot="icon-only" color="danger" class="header-icon" name="trash-outline"></ion-icon>
+          <ion-icon *ngIf="!selectedSome" slot="icon-only" color="dark" class="header-icon" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="start">
+        <ion-button (click)="selectAll()" *ngIf="!selectedAll && !selectedSome">
+          <ion-icon slot="icon-only" color="primary" class="header-icon" name="ellipse-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="unSelectAll()" *ngIf="selectedSome && !selectedAll">
+          <ion-icon slot="icon-only" color="primary" class="header-icon" name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="unSelectAll()" *ngIf="selectedAll">
+          <ion-icon slot="icon-only" color="primary" class="header-icon" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="filter()">
+          <ion-icon slot="icon-only" color="primary" class="header-icon" name="funnel-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="hasFilter" class="no-upper" (click)="clearFilter()" color="primary">
+          Clear Filter
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="logScrolling($event)" [appStickySegment]="segmentcontrol">
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'select' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'oid' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'date' | translate }}</ion-label>
+          </ion-col>
+          <ion-col *ngIf="isWeb">
+            <ion-label color="primary" class="order-header">{{ 'customer' | translate }}</ion-label>
+          </ion-col>
+          <ion-col *ngIf="isWeb">
+            <ion-label color="primary" class="order-header">{{ 'end_customer' | translate }}</ion-label>
+          </ion-col>
+          <ion-col *ngIf="isWeb">
+            <ion-label color="primary" class="order-header">{{ 'driver' | translate }}</ion-label>
+          </ion-col>
+          <ion-col *ngIf="isWeb">
+            <ion-label color="primary" class="order-header">{{ 'from' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'to' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'status' | translate }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="order-header">{{ 'financial_status' | translate }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-virtual-scroll [items]="orders" approxItemHeight="{{approxItemHeight}}">
+      <!-- <ion-item *virtualItem="let order" (click)="showDetails(order)" [ngClass]="orderItemBackground(order.status)"> -->
+      <ion-item *virtualItem="let order" [color]="order.financial_status === 4 ? 'done-order' : ''">
+        <ion-grid>
+          <ion-row color="primary">
+            <ion-col>
+              <ion-checkbox (ionChange)="changeSelect()" [(ngModel)]="order.isChecked" mode="ios"></ion-checkbox>
+            </ion-col>
+            <ion-col (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item">{{ order.oid }}</ion-label>
+            </ion-col>
+            <ion-col (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item">{{ order.created_at | dateTimeFormat : 'DD/MM/yyyy'  }}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="isWeb" (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item ion-text-wrap">{{ order.customer.name }}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="isWeb" (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item ion-text-wrap">{{ order.end_customer_name }}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="isWeb" (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item ion-text-wrap">{{ order.driver? order.driver.name : '' }}</ion-label>
+            </ion-col>
+            <ion-col *ngIf="isWeb" (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item ion-text-wrap">{{ order.from.name }}</ion-label>
+            </ion-col>
+            <ion-col (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item ion-text-wrap">{{ order.to.name }}</ion-label>
+            </ion-col>
+            <ion-col [ngClass]="order.financial_status === 4 ? '' : orderItemBackground(order.status)" (click)="showDetails(order)" button>
+              <ion-label style="font-weight: bold;" class="order-item" [color]="orderStatusColor(order.status, order.financial_status)">{{ 'ORDER.STATUS.' + order.status.id | translate }}</ion-label>
+            </ion-col>
+            <ion-col (click)="showDetails(order)" button>
+              <ion-label color="dark" class="order-item">{{ 'ORDER.FINANCIAL_STATUS.' + order.financial_status | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-virtual-scroll>
+
+  <ion-infinite-scroll *ngIf="showIfinite" threshold="50px" (ionInfinite)="loadMoreItems($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

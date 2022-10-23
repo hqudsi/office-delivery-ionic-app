@@ -1,0 +1,74 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-icon slot="start" class="header-padding" size="large" name="person-circle-outline"></ion-icon>
+    <ion-title class="ion-text-center" color="primary">{{ "TABS.profile" | translate }}</ion-title>
+    <ion-icon (click)="showQR()" name="qr-code-outline" slot="end" size="large" class="header-padding"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">{{ 'REGISTER.oid' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.oid }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">{{ 'REGISTER.user_name' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userData.name }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">{{ 'REGISTER.email' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userData.email }}</ion-label>
+      <!-- <ion-icon name="" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">{{ 'REGISTER.CUST.name' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.name }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item *ngIf="userData.type != 3">
+      <ion-label color="primary">{{ 'REGISTER.CUST.manager' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.manager }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item *ngIf="userData.type != 3">
+      <ion-label color="primary">{{ 'REGISTER.CUST.city' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.city.name }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item *ngIf="userData.type != 3">
+      <ion-label color="primary">{{ 'REGISTER.CUST.address' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.address }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">{{ 'REGISTER.CUST.phone' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.phone }}</ion-label>
+      <!-- <ion-icon name="create-outline" slot="end"></ion-icon> -->
+    </ion-item>
+    <ion-item *ngIf="userData.type == 3">
+      <ion-label color="primary">{{ 'REGISTER.company_name' | translate }}</ion-label>
+      <ion-label color="dark" text-wrap>{{ userDetails.company.name }}</ion-label>
+      <!-- <ion-icon name="" slot="end"></ion-icon> -->
+    </ion-item>
+
+  </ion-list>
+  </div>
+  <!-- fab buttons -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="construct-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button data-desc="تغير كلمة المرور" (click)="changePassword()">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button data-desc="حذف الحساب" (click)="deleteAccount()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

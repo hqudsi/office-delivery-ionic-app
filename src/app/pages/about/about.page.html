@@ -1,0 +1,49 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ "TABS.about" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="web-content-div">
+  <ion-img class="beeicon" src="assets/Beelivery-Splash.png"></ion-img>
+
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title>
+        {{ "ABOUT.about" | translate }}
+      </ion-card-title>
+      
+      <br/>
+
+      <ion-card-subtitle>{{ "ABOUT.app_version" | translate }}</ion-card-subtitle>
+      <ion-card-title>2.0.0</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-subtitle>{{ "ABOUT.developer" | translate }}</ion-card-subtitle>
+      <ion-img class="acticon" src="assets/actLogo.png"></ion-img>
+      <br/>
+      <ion-card-subtitle>{{ "ABOUT.address" | translate }}</ion-card-subtitle>
+      <ion-card-title>{{ "ABOUT.address1" | translate }}</ion-card-title>
+      <ion-card-title>{{ "ABOUT.address2" | translate }}</ion-card-title>
+      <br/>
+      <ion-card-subtitle>{{ "ABOUT.email" | translate }}</ion-card-subtitle>
+      <ion-card-title> <a href="mailto:info@act.ps">info@act.ps</a></ion-card-title>
+      <br/>
+      <ion-card-subtitle>{{ "ABOUT.facebook" | translate }}</ion-card-subtitle>
+      <ion-card-title>
+        <a href="https://www.facebook.com/actpsCo/">facebook.com/actpsCo</a>
+      </ion-card-title>
+      
+    </ion-card-header>
+  </ion-card>
+
+  </div>
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'ADD.customer-payment-voucher' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+
+<ion-content>
+  <form [formGroup]="formGroup">
+    <div class="input-group">
+      <ion-item>
+        <ion-label type="text" position="fixed">{{ 'ORDER.customer' | translate }}</ion-label>
+        <ion-select (ionChange)="onCustomerChange($event)" [disabled]="!customers" formControlName="customer_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let customer of customers" [value]="customer.id">{{customer.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ORDER.manual_number' | translate }}</ion-label>
+        <ion-input maxlength="50" placeholder="{{ 'ORDER.manual_number' | translate }}" formControlName="manual_number"></ion-input>
+      </ion-item>
+    </div>
+  </form>
+  <div class="input-group">
+    <ion-searchbar (search)="search($event)" mode="ios" [disabled]="!orders" (ionInput)="inputSearh($event)"></ion-searchbar>
+    <ion-list class="orders-list">
+      <div *ngFor="let order of orders">
+        <ion-item *ngIf="order.display">
+          <ion-label>{{order.oid}}</ion-label>
+          <ion-checkbox slot="end" [(ngModel)]="order.isChecked" (ionChange)="checkOrder()"></ion-checkbox>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+  <div class="input-group">
+    <ion-item [disabled]="true">
+      <ion-label type="text" position="fixed">{{ 'MODAL.total' | translate }}</ion-label>
+      <ion-input  type="text" inputmode="tel" [(ngModel)]="total"></ion-input>
+    </ion-item>
+  </div>
+  <div class="input-group">
+    <ion-label color="danger" type="text" position="fixed">{{ 'TABS.not_found_orders_text' | translate }}</ion-label>
+    <ion-textarea
+      autoGrow="true"
+      readonly
+      [(ngModel)]="not_found_orders_text">
+    </ion-textarea>
+  </div>
+
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

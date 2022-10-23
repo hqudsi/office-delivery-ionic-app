@@ -1,0 +1,73 @@
+<ion-toolbar color="primary">
+  <ion-title>{{ 'MODAL.filter' | translate }}</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="close()">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+
+<ion-content>
+  <form [formGroup]="formGroup">
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ORDER.from_date' | translate }}</ion-label>
+        <ion-datetime placeholder="{{ 'ORDER.from_date' | translate }}" displayFormat="DD/MM/YYYY"
+          pickerFormat="D MMM YYYY" formControlName="from_date">
+        </ion-datetime>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label position="fixed">{{ 'ORDER.to_date' | translate }}</ion-label>
+        <ion-datetime placeholder="{{ 'ORDER.to_date' | translate }}" displayFormat="DD/MM/YYYY"
+          pickerFormat="D MMM YYYY" formControlName="to_date">
+        </ion-datetime>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label type="text" position="fixed">{{ 'ORDER.city' | translate }}</ion-label>
+        <ion-select [disabled]="!cities" formControlName="city_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label type="text" position="fixed">{{ 'ORDER.supplier' | translate }}</ion-label>
+        <ion-select [disabled]="!customers" formControlName="customer_id" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let customer of customers" [value]="customer.id">{{customer.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label type="text" position="fixed">{{ 'ORDER.status' | translate }}</ion-label>
+        <ion-select [disabled]="!statuses" multiple="true" (ionChange)="changeStatus($event)" interface="action-sheet" mode="ios">
+          <ion-select-option *ngFor="let status of statuses" [value]="status.id">{{status.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="input-group">
+      <ion-item lines="none">
+        <ion-label type="text" position="fixed">{{ 'ORDER.financial_status' | translate }}</ion-label>
+        <ion-select multiple="true" (ionChange)="changeFinancialStatus($event)" interface="action-sheet" mode="ios">
+          <ion-select-option value="1">{{ 'ORDER.FINANCIAL_STATUS.1' | translate }}</ion-select-option>
+          <ion-select-option value="2">{{ 'ORDER.FINANCIAL_STATUS.2' | translate }}</ion-select-option>
+          <ion-select-option value="3">{{ 'ORDER.FINANCIAL_STATUS.3' | translate }}</ion-select-option>
+          <ion-select-option value="4">{{ 'ORDER.FINANCIAL_STATUS.4' | translate }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    
+  </form>
+  <ion-button class="save-button" expand="block" (click)="save()">{{ 'save' | translate }}</ion-button>
+</ion-content>

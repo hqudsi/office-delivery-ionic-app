@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">officedelivery</string>
+    <string name="title_activity_main">officedelivery</string>
+    <string name="package_name">ps.act.officedelivery</string>
+    <string name="custom_url_scheme">ps.act.officedelivery</string>
+</resources>

@@ -1,0 +1,313 @@
+<ion-header mode="md">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-back-button defaultHref="/tabs/orders"></ion-back-button> -->
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ 'ORDER.details.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="true">
+  <div class="web-content-div">
+  <div *ngIf="data" class="selectable">
+    <ion-card class="selectable">
+      <ion-item lines="none" [ngClass]="orderItemBackground(data.status)">
+        <ion-icon (click)="showQR()" name="qr-code-outline" slot="start" size="large" [color]="orderStatusColor(data.status)"></ion-icon>
+        <ion-label class="header-labels" [color]="orderStatusColor(data.status)">{{ data.oid }}</ion-label>
+        <ion-label class="header-labels" [color]="orderStatusColor(data.status)">{{ data.status.name }}</ion-label>
+        <ion-icon slot="end" size="large" name="list-circle-outline" [color]="orderStatusColor(data.status)" (click)="listStatus()"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.company_info' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.company' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.company.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.company.phone }}</ion-label>
+        <ion-icon name="call-outline" color="primary" slot="end" button (click)="makeCall(data.company.phone)"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.driver' | translate }}</ion-label>
+        <ion-label *ngIf="data.driver" color="dark" text-wrap class="selectable">{{ data.driver.name }}</ion-label>
+        <ion-label *ngIf="!data.driver" color="dark" text-wrap class="selectable"></ion-label>
+        <ion-icon *ngIf="userType!=3 && userType!=2 && userType!=5" name="pencil-outline" color="primary" slot="end" button (click)="editDriver()"></ion-icon>
+        <ion-icon *ngIf="userType==3 || userType==2 && userType==5" name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="userType!=2">
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label *ngIf="data.driver" color="dark" text-wrap class="selectable">{{ data.driver.phone }}</ion-label>
+        <ion-label *ngIf="!data.driver" color="dark" text-wrap class="selectable"></ion-label>
+        <ion-icon *ngIf="data.driver" name="call-outline" color="primary" slot="end" button (click)="makeCall(data.driver.phone)"></ion-icon>
+        <ion-icon *ngIf="!data.driver" name="" slot="end"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.sender_info' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.supplier' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.customer.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap class="selectable">{{ data.customer.phone }}</ion-label>
+        <ion-icon name="call-outline" color="primary" slot="end" button (click)="makeCall(data.customer.phone)"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.city' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap>{{ data.from.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-grid class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="10" class="ion-no-padding ion-no-margin">
+              <ion-card-title>{{ 'ORDER.details.reciver_info' | translate }}</ion-card-title>
+            </ion-col>
+            <ion-col size="2" class="ion-no-padding ion-no-margin ion-text-end">
+              <ion-icon style="font-size: 24px;" name="pencil-outline" color="primary" (click)="editOrder()" *ngIf="data.status_id < 5 && (userType == 1 || userType == 4) "></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- <ion-card-title>
+          {{ 'ORDER.details.reciver_info' | translate }}
+          <div  class="ion-justify-content-end">
+            <ion-icon name="call-outline" color="primary" (click)="makeCall(data.customer.phone)"></ion-icon>
+          </div>
+        </ion-card-title> -->
+      </ion-card-header>
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.customer' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap>{{ data.end_customer_name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.city' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.to.name }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.address' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap>{{ data.end_customer_address }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.phone' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.end_customer_phone }}</ion-label>
+        <ion-icon name="call-outline" color="primary" slot="end" button (click)="makeCall(data.end_customer_phone)"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.order_details' | translate }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-item (click)="listPackges()">
+        <ion-label color="primary">{{'ORDER.MONEY.quantity' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].packages_count }}</ion-label>
+        <ion-icon color="primary" name="eye-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{'ORDER.COLLECT.title_details' | translate}}</ion-label>
+        <!-- <ion-label color="dark" *ngIf="data.order_costs[0].pay_on_delivery == 1">{{'ORDER.COLLECT.yes' | translate}}</ion-label> -->
+        <!-- <ion-label color="dark" *ngIf="data.order_costs[0].pay_on_delivery == 0">{{'ORDER.COLLECT.no' | translate}}</ion-label> -->
+
+        <!-- <ion-label color="primary">{{'ORDER.COLLECT.title' | translate}}</ion-label> -->
+        <ion-label color="dark" *ngIf="data.order_costs[0].pay_on_delivery == 1">{{'ORDER.COLLECT.yes' | translate}}
+        </ion-label>
+        <ion-label color="dark" *ngIf="data.order_costs[0].pay_on_delivery == 0">{{'ORDER.COLLECT.no' | translate}}
+        </ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{'ORDER.MONEY.title' | translate}}</ion-label>
+        <ion-label color="dark" *ngIf="data.order_costs[0].who_pays == 1">{{'ORDER.MONEY.on_sender' | translate}}
+        </ion-label>
+        <ion-label color="dark" *ngIf="data.order_costs[0].who_pays == 2">{{'ORDER.MONEY.on_reciver' | translate}}
+        </ion-label>
+        <ion-label color="dark" *ngIf="data.order_costs[0].who_pays == 3">{{'ORDER.MONEY.free' | translate}}</ion-label>
+        <ion-icon name="pencil-outline" color="primary" slot="end" (click)="changeWhoPay()" *ngIf="data.status_id < 5 && userType == 1 "></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.manual_number' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap>{{ data.manual_number }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.notes' | translate }}</ion-label>
+        <ion-label color="dark" text-wrap>{{ data.notes }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.create_date' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.created_at | dateTimeFormat: 'DD/MM/yyyy' }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.due_date' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.due_date | dateTimeFormat: 'DD/MM/yyyy' }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.received_date' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.received_date | dateTimeFormat: 'DD/MM/yyyy' }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.payment_details' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.package_total' | translate }}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].packages_cost }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{'ORDER.MONEY.title' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].trans_cost }}</ion-label>
+        <ion-icon  *ngIf="this.data.status_id < 6 && userType === 1" color="primary" name="pencil-outline" slot="end" (click)="changeCost()"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">{{'ORDER.MONEY.to_collect' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].to_collect }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+      
+      <ion-item *ngIf="data.order_costs[0].returned != 1">
+        <ion-label color="primary">{{'ORDER.MONEY.received' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].received }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="data.order_costs[0].returned != 1">
+        <ion-label color="primary">{{'ORDER.notes' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].collection_notes }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="data.order_costs[0].returned == 1">
+        <ion-label color="primary">{{'ORDER.MONEY.returned' | translate}}</ion-label>
+        <ion-label color="dark">{{ data.order_costs[0].return_cost }}</ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+
+      <!-- collection_notes -->
+    </ion-card>
+
+    <ion-card *ngIf="userType === 1 || userType === 5">
+      <ion-card-header>
+        <ion-card-title>{{ 'ORDER.details.audit_details' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-item >
+        <ion-label color="primary">{{ 'ORDER.driver_collection' | translate }}</ion-label>
+        <ion-label color="dark" *ngIf="data.driver_collection">{{ data.driver_collection.oid }}</ion-label>
+        <ion-label color="dark" *ngIf="!data.driver_collection"></ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.create_date' | translate }}</ion-label>
+        <ion-label *ngIf="data.driver_collection" color="dark">{{ data.driver_collection.created_at | dateTimeFormat: 'DD/MM/yyyy' }}</ion-label>
+        <ion-label *ngIf="!data.driver_collection" color="dark"></ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.customer_payment' | translate }}</ion-label>
+        <ion-label *ngIf="data.customer_payment_object" color="dark">{{ data.customer_payment_object.oid }}</ion-label>
+        <ion-label *ngIf="!data.customer_payment_object" color="dark"></ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">{{ 'ORDER.create_date' | translate }}</ion-label>
+        <ion-label *ngIf="data.customer_payment_object" color="dark">{{ data.customer_payment_object.created_at | dateTimeFormat: 'DD/MM/yyyy' }}</ion-label>
+        <ion-label *ngIf="!data.customer_payment_object" color="dark"></ion-label>
+        <ion-icon name="" slot="end"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
+  
+</div>
+  <!-- fab buttons -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="data && userType != 5">
+    <ion-fab-button>
+      <ion-icon name="construct-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button data-desc="تعديل الحالة" (click)="changeStatus()" [disabled]="!systemStatuses" *ngIf="((data.status_id <= 6 && userType != 3) || (data.status_id == 5 && userType == 3)) && userType != 5  && userType!=2">
+        <ion-icon name="swap-horizontal-outline"></ion-icon>
+        <!-- <label>change status</label> -->
+      </ion-fab-button>
+      <!-- <ion-fab-button data-desc="تحصيل المبلغ" (click)="addPayment()" *ngIf="userType != 2 && userType != 5 && !data.order_costs[0].collected && data.status_id < 6">
+        <ion-icon name="card-outline"></ion-icon>
+      </ion-fab-button> -->
+      <ion-fab-button data-desc="طباعة الوصل" (click)="print()" *ngIf="userType != 5">
+        <ion-icon name="print"></ion-icon>
+        <!-- <label>print</label> -->
+      </ion-fab-button>
+      <ion-fab-button data-desc="تعديل بيانات المسلتم" (click)="editOrder()" *ngIf="data.status_id < 5 && (userType == 1 || userType == 4) ">
+        <ion-icon name="pencil"></ion-icon>
+        <!-- <label>print</label> -->
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+<!-- <ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button class="footer-button" slot="start">
+      {{ 'ORDER.payment' | translate }}
+    </ion-button>
+    <ion-button class="footer-button" slot="end">
+      {{ 'ORDER.change_status' | translate }}
+    </ion-button>
+    <div style="text-align: center;">
+      <ion-button class="footer-button">
+        {{ 'back' | translate }}
+      </ion-button>
+      <ion-button fill="outline" class="footer-button">
+        {{ 'next' | translate }}
+      </ion-button>
+      <ion-button class="footer-button">
+        {{ 'approve' | translate }}
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer> -->

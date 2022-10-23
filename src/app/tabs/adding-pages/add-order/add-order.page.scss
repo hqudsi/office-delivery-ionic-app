@@ -1,0 +1,86 @@
+ion-title {
+  font-weight: 500;
+}
+
+ion-segment {
+  padding-top: 5px;
+  ion-segment-button > ion-label {
+    font-weight: bold;
+  }
+}
+
+.review-item {
+  --min-height: 25px !important;
+  display: contents;
+  ion-label {
+    margin: 2px 0px 2px !important;
+  }
+}
+
+.input-group {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  // border: 1px solid rgb(110 144 159);
+  border: 1px solid rgb(225,150,20, 0.5);
+}
+
+.select-item {
+  --inner-padding-end: 0px;
+  ion-buttons {
+    margin: 0px;
+  }
+}
+
+.button-group {
+  overflow: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.segment-label {
+  letter-spacing: 0px;
+}
+
+.footer-button {
+  --border-radius: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+@media (max-width:700px){
+.incline-line-1 {
+    // border: 1px solid var(--ion-color-primary);
+    // border: 1px dotted var(--ion-color-primary);
+    border: 0.01em dashed rgb(225,150,20, 0.5);
+    width: 20%;
+    margin: auto;
+    margin-top: 27px;
+    position: absolute;
+    height: 0px;
+    left: 15%;
+  }
+
+  .incline-line-2 {
+    border: 0.01em dashed rgb(225,150,20, 0.5);
+    width: 20%;
+    margin: auto;
+    margin-top: 27px;
+    position: absolute;
+    height: 0px;
+    left: 40%;
+  }
+
+  .incline-line-3 {
+    border: 0.01em dashed rgb(225,150,20, 0.5);
+    width: 20%;
+    margin: auto;
+    margin-top: 27px;
+    position: absolute;
+    height: 0px;
+    left: 65%;
+  }
+}

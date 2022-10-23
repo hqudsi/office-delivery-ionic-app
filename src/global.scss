@@ -1,0 +1,226 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+  // primray color
+  --ion-color-primary: #e19614;
+  --ion-color-primary-rgb: 225,150,20;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #c68412;
+  --ion-color-primary-tint: #e4a12c;
+  // new order color
+  --ion-color-new-order: #ffffff;
+  --ion-color-new-order-rgb: 255,255,255;
+  --ion-color-new-order-contrast: #000000;
+  --ion-color-new-order-contrast-rgb: 0,0,0;
+  --ion-color-new-order-shade: #e0e0e0;
+  --ion-color-new-order-tint: #ffffff;
+  // in company order color
+  --ion-color-in-company-order: #A4C2F4;
+  --ion-color-in-company-order-rgb: 164,194,244;
+  --ion-color-in-company-order-contrast: #000000;
+  --ion-color-in-company-order-contrast-rgb: 0,0,0;
+  --ion-color-in-company-order-shade: #90abd7;
+  --ion-color-in-company-order-tint: #adc8f5;
+  // sorting order color
+  --ion-color-sorting-order: #6D9EEB;
+  --ion-color-sorting-order-rgb: 109,158,235;
+  --ion-color-sorting-order-contrast: #000000;
+  --ion-color-sorting-order-contrast-rgb: 0,0,0;
+  --ion-color-sorting-order-shade: #608bcf;
+  --ion-color-sorting-order-tint: #7ca8ed;
+  // parked order color
+  --ion-color-parked-order: #F6B26B;
+  --ion-color-parked-order-rgb: 246,178,107;
+  --ion-color-parked-order-contrast: #000000;
+  --ion-color-parked-order-contrast-rgb: 0,0,0;
+  --ion-color-parked-order-shade: #d89d5e;
+  --ion-color-parked-order-tint: #f7ba7a;
+  // in progress order color
+  --ion-color-in-progress-order: #B6D7A8;
+  --ion-color-in-progress-order-rgb: 182,215,168;
+  --ion-color-in-progress-order-contrast: #000000;
+  --ion-color-in-progress-order-contrast-rgb: 0,0,0;
+  --ion-color-in-progress-order-shade: #a0bd94;
+  --ion-color-in-progress-order-tint: #bddbb1;
+  // delivered order color
+  --ion-color-delivered-order: #6AA84F;
+  --ion-color-delivered-order-rgb: 106,168,79;
+  --ion-color-delivered-order-contrast: #000000;
+  --ion-color-delivered-order-contrast-rgb: 0,0,0;
+  --ion-color-delivered-order-shade: #5d9446;
+  --ion-color-delivered-order-tint: #79b161;
+  // return order color
+  --ion-color-return-order: #EA9999;
+  --ion-color-return-order-rgb: 234,153,153;
+  --ion-color-return-order-contrast: #000000;
+  --ion-color-return-order-contrast-rgb: 0,0,0;
+  --ion-color-return-order-shade: #ce8787;
+  --ion-color-return-order-tint: #eca3a3;
+  // canceled order color
+  --ion-color-canceled-order: #FF0000;
+  --ion-color-canceled-order-rgb: 255,0,0;
+  --ion-color-canceled-order-contrast: #ffffff;
+  --ion-color-canceled-order-contrast-rgb: 255,255,255;
+  --ion-color-canceled-order-shade: #e00000;
+  --ion-color-canceled-order-tint: #ff1a1a;
+  // done order color
+  --ion-color-done-order: #d9ead3;
+  --ion-color-done-order-rgb: 217,234,211;
+  --ion-color-done-order-contrast: #000000;
+  --ion-color-done-order-contrast-rgb: 0,0,0;
+  --ion-color-done-order-shade: #bfceba;
+  --ion-color-done-order-tint: #ddecd7;
+}
+
+.ion-color-new-order {
+  --ion-color-base: var(--ion-color-new-order);
+  --ion-color-base-rgb: var(--ion-color-new-order-rgb);
+  --ion-color-contrast: var(--ion-color-new-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-new-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-new-order-shade);
+  --ion-color-tint: var(--ion-color-new-order-tint);
+}
+.ion-color-in-company-order {
+  --ion-color-base: var(--ion-color-in-company-order);
+  --ion-color-base-rgb: var(--ion-color-in-company-order-rgb);
+  --ion-color-contrast: var(--ion-color-in-company-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-in-company-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-in-company-order-shade);
+  --ion-color-tint: var(--ion-color-in-company-order-tint);
+}
+.ion-color-sorting-order {
+  --ion-color-base: var(--ion-color-sorting-order);
+  --ion-color-base-rgb: var(--ion-color-sorting-order-rgb);
+  --ion-color-contrast: var(--ion-color-sorting-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-sorting-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-sorting-order-shade);
+  --ion-color-tint: var(--ion-color-sorting-order-tint);
+}
+.ion-color-parked-order {
+  --ion-color-base: var(--ion-color-parked-order);
+  --ion-color-base-rgb: var(--ion-color-parked-order-rgb);
+  --ion-color-contrast: var(--ion-color-parked-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-parked-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-parked-order-shade);
+  --ion-color-tint: var(--ion-color-parked-order-tint);
+}
+.ion-color-in-progress-order {
+  --ion-color-base: var(--ion-color-in-progress-order);
+  --ion-color-base-rgb: var(--ion-color-in-progress-order-rgb);
+  --ion-color-contrast: var(--ion-color-in-progress-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-in-progress-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-in-progress-order-shade);
+  --ion-color-tint: var(--ion-color-in-progress-order-tint);
+}
+.ion-color-delivered-order {
+  --ion-color-base: var(--ion-color-delivered-order);
+  --ion-color-base-rgb: var(--ion-color-delivered-order-rgb);
+  --ion-color-contrast: var(--ion-color-delivered-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-delivered-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-delivered-order-shade);
+  --ion-color-tint: var(--ion-color-delivered-order-tint);
+}
+.ion-color-return-order {
+  --ion-color-base: var(--ion-color-return-order);
+  --ion-color-base-rgb: var(--ion-color-return-order-rgb);
+  --ion-color-contrast: var(--ion-color-return-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-return-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-return-order-shade);
+  --ion-color-tint: var(--ion-color-return-order-tint);
+}
+.ion-color-canceled-order {
+  --ion-color-base: var(--ion-color-canceled-order);
+  --ion-color-base-rgb: var(--ion-color-canceled-order-rgb);
+  --ion-color-contrast: var(--ion-color-canceled-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-canceled-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-canceled-order-shade);
+  --ion-color-tint: var(--ion-color-canceled-order-tint);
+}
+
+.ion-color-done-order {
+  --ion-color-base: var(--ion-color-done-order);
+  --ion-color-base-rgb: var(--ion-color-done-order-rgb);
+  --ion-color-contrast: var(--ion-color-done-order-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-done-order-contrast-rgb);
+  --ion-color-shade: var(--ion-color-done-order-shade);
+  --ion-color-tint: var(--ion-color-done-order-tint);
+}
+
+ion-content {
+  --background: #FAFAFA;
+}
+
+.no-upper {
+  text-transform: none;
+}
+
+ion-label {
+  --color: var(--ion-color-primary) !important;
+  // color: var(--ion-color-primary) !important;
+}
+
+// custom modal
+.cal-modal {
+  --height: 80%;
+  --border-radius: 10px;
+  padding: 25px;
+}
+
+.customer-modal {
+  --border-radius: 10px 10px 0px 0px;
+  padding: 50px 0px 0px 0px;
+  --height: 100%;
+}
+
+.status-popover-class .popover-content {
+  --width: 75%;
+  width: 75%;
+}
+
+.my-custom-class-1 {
+  --background: #fff;
+  --spinner-color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
+}
+
+// ion-content::part(scroll) {
+//   max-width: 700px !important;
+//   margin: auto;
+//   // --offset-top: 0px !important;
+//   // --offset-bottom: 0px !important;
+// }
+
+.web-content-div {
+  max-width: 700px;
+  margin: auto;
+}
+
+.save-button {
+  margin: 10px 20px;
+}
